@@ -1,9 +1,10 @@
-const express = require('express')
-const nodemailer = require('nodemailer')
-const cors = require('cors')
-require('dotenv').config()
-const path = require('path')
-const { GoogleGenAI } = require('@google/genai')
+import express from 'express'
+import nodemailer from 'nodemailer'
+import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config()
+import path from 'path'
+import { GoogleGenAI } from '@google/genai'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -94,10 +95,10 @@ app.post('/api/contact', async (req, res) => {
 // Catch-all route removed (Vercel handles client-side routing via vercel.json)
 
 // Export the app for Vercel Serverless Functions
-module.exports = app
+export default app
 
 // Only listen locally if not running on Vercel
-if (require.main === module) {
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Two Lines Studio backend running on http://localhost:${PORT}`)
   })
