@@ -36,7 +36,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section container" style={{ zIndex: 10, position: 'relative' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+      <div className="grid-responsive">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -15,13 +15,13 @@ export default function About() {
           <h2 className="text-title" style={{ marginBottom: '2rem' }}>About<br/>The Studio</h2>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+        <div className="grid-responsive">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ fontSize: '1.1rem', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 2 }}
+            style={{ fontSize: '1.1rem', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 2, textAlign: 'justify' }}
           >
             <p style={{ marginBottom: '2rem' }}>
               Two Lines Studio is a multidisciplinary design consultancy specializing in Architecture, Interior Design, and Landscape.
@@ -43,9 +43,12 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="glass-panel"
-            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '2rem' }}
           >
-             <img src="/interior.png" alt="Interior Render" style={{ width: '100%', height: 'auto', objectFit: 'cover', marginBottom: '2rem', filter: 'brightness(0.9) contrast(1.1)' }} />
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Meet the Minds</h3>
+            <img src="/rhujul_patel.jpg" alt="Rhujul Patel" style={{ width: '100%', maxWidth: '300px', aspectRatio: '3/4', objectFit: 'cover', marginBottom: '1.5rem', borderRadius: '4px' }} />
+            <h4 style={{ fontSize: '1.25rem', marginBottom: '0.25rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Rhujul Patel</h4>
+            <p style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.7 }}>Principal Designer</p>
           </motion.div>
         </div>
 
@@ -54,17 +57,17 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginTop: '4rem', borderTop: '1px solid rgba(61, 48, 40, 0.2)', paddingTop: '2rem' }}
+          className="stats-container"
         >
-          <div>
+          <div className="stat-item">
             <h3 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>50+</h3>
             <p className="uppercase" style={{ fontSize: '0.875rem' }}>Clients<br/>Connection</p>
           </div>
-          <div style={{ borderLeft: '1px solid rgba(61, 48, 40, 0.2)', paddingLeft: '2rem' }}>
+          <div className="stat-item">
             <h3 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>4+</h3>
             <p className="uppercase" style={{ fontSize: '0.875rem' }}>Years of<br/>Working</p>
           </div>
-          <div style={{ borderLeft: '1px solid rgba(61, 48, 40, 0.2)', paddingLeft: '2rem' }}>
+          <div className="stat-item">
             <h3 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>100%</h3>
             <p className="uppercase" style={{ fontSize: '0.875rem' }}>Design to<br/>Execution Support</p>
           </div>

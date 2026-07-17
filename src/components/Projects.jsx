@@ -129,7 +129,7 @@ function LightboxModal({ project, onClose }) {
       <button
         onClick={(e) => { e.stopPropagation(); onClose() }}
         style={{
-          position: 'fixed', top: '1rem', right: '1.5rem',
+          position: 'absolute', top: '1.5rem', right: '1.5rem',
           background: 'var(--color-accent)',
           border: 'none',
           color: '#0d0b0a',
@@ -245,13 +245,14 @@ export default function Projects() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
         {projects.map((project, index) => (
-          <div key={project.id} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
+          <div key={project.id} className={`grid-responsive ${index % 2 !== 0 ? 'project-odd' : 'project-even'}`} style={{ alignItems: 'center' }}>
             <motion.div
+              className="project-item-image"
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              style={{ order: index % 2 === 0 ? 1 : 2, position: 'relative', cursor: 'pointer' }}
+              style={{ position: 'relative', cursor: 'pointer' }}
               onClick={() => setLightboxProject(project)}
             >
               <img
@@ -278,16 +279,16 @@ export default function Projects() {
             </motion.div>
 
             <motion.div
+              className="project-item-info"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              style={{ order: index % 2 === 0 ? 2 : 1 }}
             >
               <p className="uppercase" style={{ color: 'var(--color-accent)', letterSpacing: '0.1em', fontSize: '0.75rem', marginBottom: '1rem' }}>
                 {project.category} • {project.location}
               </p>
-              <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em' }}>{project.title}</h3>
+              <h3 style={{ fontSize: 'clamp(1.5rem, 6vw, 2rem)', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', wordBreak: 'break-word' }}>{project.title}</h3>
               <p className="uppercase" style={{ opacity: 0.8, letterSpacing: '0.05em', lineHeight: 1.8, marginBottom: '2rem', fontSize: '0.875rem' }}>
                 {project.description}
               </p>

@@ -5,7 +5,7 @@ import { Building2, Home, Store } from 'lucide-react'
 export default function Clients() {
   return (
     <section id="clients" className="section container" style={{ zIndex: 10, position: 'relative' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
+      <div className="grid-responsive" style={{ alignItems: 'center' }}>
         
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
