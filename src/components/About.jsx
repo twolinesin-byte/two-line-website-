@@ -46,7 +46,7 @@ export default function About() {
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '2rem' }}
           >
             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Meet the Minds</h3>
-            <img src="/rhujul_patel.jpg" alt="Rhujul Patel" style={{ width: '100%', maxWidth: '300px', aspectRatio: '3/4', objectFit: 'cover', marginBottom: '1.5rem', borderRadius: '4px' }} />
+            <img src="/rhujul_patel.jpg" alt="Rhujul Patel" style={{ width: '100%', maxWidth: '240px', aspectRatio: '3/4', objectFit: 'cover', marginBottom: '1.5rem', borderRadius: '4px' }} />
             <h4 style={{ fontSize: '1.25rem', marginBottom: '0.25rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Rhujul Patel</h4>
             <p style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.7 }}>Principal Designer</p>
           </motion.div>
