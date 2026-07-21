@@ -21,7 +21,8 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ fontSize: '1.3rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontWeight: 400, letterSpacing: '0.02em', lineHeight: 1.8, textAlign: 'justify', color: 'rgba(245, 243, 239, 0.85)' }}
+            className="uppercase"
+            style={{ fontSize: '0.875rem', letterSpacing: '0.05em', lineHeight: 1.8, opacity: 0.8, textAlign: 'justify' }}
           >
             <p style={{ marginBottom: '1.5rem' }}>
               Two Lines Studio is a multidisciplinary design consultancy specializing in Architecture, Interior Design, and Landscape.
