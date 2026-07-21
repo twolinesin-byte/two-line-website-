@@ -21,19 +21,13 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ fontSize: '1.1rem', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 2, textAlign: 'justify' }}
+            style={{ fontSize: '1.3rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontWeight: 400, letterSpacing: '0.02em', lineHeight: 1.8, textAlign: 'justify', color: 'rgba(245, 243, 239, 0.85)' }}
           >
-            <p style={{ marginBottom: '2rem' }}>
+            <p style={{ marginBottom: '1.5rem' }}>
               Two Lines Studio is a multidisciplinary design consultancy specializing in Architecture, Interior Design, and Landscape.
             </p>
-            <p style={{ marginBottom: '2rem' }}>
-              We deliver end-to-end design solutions — from concept development to execution — ensuring clarity, precision, and consistency throughout the project lifecycle.
-            </p>
-            <p style={{ marginBottom: '2rem' }}>
-              Our work is driven by functional planning, material intelligence, and attention to detail, resulting in spaces that are efficient, market-ready, and aesthetically refined.
-            </p>
             <p>
-              We operate across residential, commercial, and hospitality sectors, with a focus on delivering measurable value through design.
+              Driven by functional planning and material intelligence, we deliver end-to-end solutions that are efficient, market-ready, and aesthetically refined.
             </p>
           </motion.div>
           

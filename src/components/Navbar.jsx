@@ -1,28 +1,39 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'About', href: '/#about', isHash: true },
+    { name: 'Projects', href: '/#projects', isHash: true },
+    { name: 'Process', href: '/#process', isHash: true },
+    { name: 'Locations', href: '/locations', isHash: false },
+    { name: 'Contact', href: '/#contact', isHash: true }
   ]
 
   return (
     <nav style={{ padding: '1.5rem 5%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'fixed', top: 0, width: '100%', zIndex: 100, backdropFilter: 'blur(10px)', backgroundColor: 'rgba(13, 11, 10, 0.8)' }}>
       <div style={{ borderBottom: '1px solid var(--color-text)', paddingBottom: '0.5rem', zIndex: 101 }}>
-        <h2 style={{ fontSize: '1rem', letterSpacing: '0.2em' }}>TWO LINES STUDIO</h2>
+        <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <h2 style={{ fontSize: '1rem', letterSpacing: '0.2em' }}>TWO LINES STUDIO</h2>
+        </Link>
       </div>
 
       {/* Desktop Menu */}
       <div className="desktop-menu" style={{ display: 'flex' }}>
         {navLinks.map(link => (
-          <a key={link.name} href={link.href} style={{ margin: '0 1rem', textDecoration: 'none', color: 'inherit', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            {link.name}
-          </a>
+          link.isHash ? (
+            <HashLink key={link.name} smooth to={link.href} style={{ margin: '0 1rem', textDecoration: 'none', color: 'inherit', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              {link.name}
+            </HashLink>
+          ) : (
+            <Link key={link.name} to={link.href} style={{ margin: '0 1rem', textDecoration: 'none', color: 'inherit', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              {link.name}
+            </Link>
+          )
         ))}
       </div>
 
@@ -43,9 +54,15 @@ export default function Navbar() {
             style={{ position: 'absolute', top: '100%', left: 0, width: '100%', backgroundColor: 'rgba(13, 11, 10, 0.95)', backdropFilter: 'blur(10px)', padding: '2rem 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', borderBottom: '1px solid rgba(245, 243, 239, 0.1)' }}
           >
             {navLinks.map(link => (
-              <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', color: 'inherit', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                {link.name}
-              </a>
+              link.isHash ? (
+                <HashLink key={link.name} smooth to={link.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', color: 'inherit', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  {link.name}
+                </HashLink>
+              ) : (
+                <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', color: 'inherit', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  {link.name}
+                </Link>
+              )
             ))}
           </motion.div>
         )}
