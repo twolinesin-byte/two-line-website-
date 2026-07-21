@@ -42,7 +42,21 @@ h1, h2, h3, h4, h5, h6 {
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 5%;
+  padding: 0 8%;
+}
+
+.navbar {
+  padding: 1.5rem 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(13, 11, 10, 0.8);
 }
 
 .section {
@@ -222,7 +236,11 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem;
+    padding: 0 2.5rem;
+  }
+  
+  .navbar {
+    padding: 1.5rem 2.5rem;
   }
 
   .section {

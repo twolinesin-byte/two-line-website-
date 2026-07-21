@@ -15,7 +15,7 @@ export default function Navbar() {
   ]
 
   return (
-    <nav style={{ padding: '1.5rem 5%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'fixed', top: 0, width: '100%', zIndex: 100, backdropFilter: 'blur(10px)', backgroundColor: 'rgba(13, 11, 10, 0.8)' }}>
+    <nav className="navbar">
       <div style={{ borderBottom: '1px solid var(--color-text)', paddingBottom: '0.5rem', zIndex: 101 }}>
         <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
           <h2 style={{ fontSize: '1rem', letterSpacing: '0.2em' }}>TWO LINES STUDIO</h2>
