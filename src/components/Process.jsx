@@ -13,7 +13,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="section container" style={{ backgroundColor: 'var(--color-bg)', zIndex: 10, position: 'relative' }}>
+    <section id="process" className="section container" style={{ zIndex: 10, position: 'relative' }}>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

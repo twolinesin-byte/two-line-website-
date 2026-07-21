@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer style={{ padding: '4rem 5%', borderTop: '1px solid rgba(245, 243, 239, 0.2)', marginTop: '8rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', zIndex: 10, position: 'relative', backgroundColor: 'var(--color-bg)' }}>
+    <footer style={{ padding: '4rem 5%', borderTop: '1px solid rgba(245, 243, 239, 0.2)', marginTop: '8rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', zIndex: 10, position: 'relative' }}>
       <h2 style={{ fontSize: '1.5rem', letterSpacing: '0.2em', marginBottom: '1rem' }}>TWO LINES STUDIO</h2>
       <p className="uppercase" style={{ fontSize: '0.75rem', opacity: 0.6, letterSpacing: '0.1em', marginBottom: '2rem' }}>
         Architecture | Interior | Landscape
