@@ -283,3 +283,52 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
   }
 }
+
+/* BIG.dk Style Project Modal */
+.big-modal-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 3rem 2rem;
+  gap: 3rem;
+  box-sizing: border-box;
+}
+
+.big-modal-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 1.5rem;
+  scrollbar-width: thin;
+}
+
+.big-modal-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .big-modal-grid {
+    grid-template-columns: 1fr;
+    padding: 4.5rem 1.5rem 1.5rem;
+    overflow-y: auto;
+    gap: 2.5rem;
+  }
+
+  .big-modal-details {
+    overflow-y: visible;
+    padding-right: 0;
+    height: auto;
+  }
+
+  .big-modal-gallery {
+    height: 480px;
+    overflow: visible;
+  }
+}

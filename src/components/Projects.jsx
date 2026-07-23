@@ -7,6 +7,9 @@ const projects = [
     title: "Vikrambhai Farm House",
     category: "Modern Farm House",
     location: "Ahmedabad",
+    year: "2023 - 2024",
+    status: "Completed",
+    scope: "Architecture & Interior",
     description: "An overview of our Residential project that combines efficiency, aesthetics, and technology to create a comfortable and private living experience. Focus on technology integration and comfort.",
     coverImage: "/projects/vikrambhai/00.jpeg",
     images: [
@@ -24,6 +27,9 @@ const projects = [
     title: "Casa Rivera",
     category: "Residential Interior",
     location: "Surat",
+    year: "2023",
+    status: "Completed",
+    scope: "Interior Design & Execution",
     description: "A premium residential project highlighting meticulous attention to detail, featuring a custom-crafted home theatre with cinematic elegance and seamless execution.",
     coverImage: "/projects/casa_rivera/09.jpeg",
     images: [
@@ -45,6 +51,9 @@ const projects = [
     title: "Jigneshbhai Farm",
     category: "Residential / Farmhouse",
     location: "Varacha",
+    year: "2022 - 2023",
+    status: "Completed",
+    scope: "Architecture & Landscape",
     description: "A sophisticated farmhouse design blending the surrounding natural landscape with modern, elegant interior living spaces.",
     coverImage: "/projects/jigneshbhai/00.jpeg",
     images: [
@@ -60,6 +69,9 @@ const projects = [
     title: "Hitenbhai Residence",
     category: "Residential Interior",
     location: "Pal",
+    year: "2023",
+    status: "Completed",
+    scope: "Interior Planning",
     description: "A customized interior solution focusing on lifestyle, space efficiency, and a refined, contemporary aesthetic.",
     coverImage: "/projects/hitenbhai/00.jpeg",
     images: [
@@ -76,6 +88,9 @@ const projects = [
     title: "Bhavinbhai Residence",
     category: "Residential Interior",
     location: "Pal",
+    year: "2024",
+    status: "Completed",
+    scope: "Full Interior Execution",
     description: "An elegant residential interior that perfectly balances functional planning with high-end material intelligence and luxury finishes.",
     coverImage: "/projects/bhavinbhai/00.jpeg",
     images: [
@@ -92,7 +107,7 @@ const projects = [
 function LightboxModal({ project, onClose }) {
   const [activeIndex, setActiveIndex] = useState(0)
 
-  // Close on Escape key
+  // Keyboard navigation & Esc key
   React.useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose()
@@ -103,122 +118,249 @@ function LightboxModal({ project, onClose }) {
     return () => window.removeEventListener('keydown', handleKey)
   }, [project, onClose])
 
-  const prev = (e) => {
-    e.stopPropagation()
-    setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
-  }
-  const next = (e) => {
-    e.stopPropagation()
-    setActiveIndex((i) => (i + 1) % project.images.length)
-  }
+  const prevImage = () => setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
+  const nextImage = () => setActiveIndex((i) => (i + 1) % project.images.length)
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={onClose}
+      transition={{ duration: 0.3 }}
       style={{
-        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-        backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 9999,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        padding: '5rem 2rem 2rem'
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: '#0d0b0a',
+        zIndex: 99999,
+        display: 'flex',
+        overflow: 'hidden'
       }}
     >
-      {/* Close button — large, always visible at top right */}
+      {/* Close button */}
       <button
-        onClick={(e) => { e.stopPropagation(); onClose() }}
+        onClick={onClose}
         style={{
-          position: 'absolute', top: '1.5rem', right: '1.5rem',
+          position: 'absolute',
+          top: '1.5rem',
+          right: '1.5rem',
           background: 'var(--color-accent)',
           border: 'none',
           color: '#0d0b0a',
-          fontSize: '1.2rem',
+          fontSize: '0.9rem',
           fontWeight: 700,
           cursor: 'pointer',
-          width: '48px', height: '48px', borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 10001,
+          padding: '0.6rem 1.2rem',
+          borderRadius: '20px',
+          zIndex: 100001,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
           boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
-          lineHeight: 1
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase'
         }}
         title="Close (Esc)"
-      >✕</button>
-
-      {/* Project title + counter */}
-      <p style={{
-        position: 'fixed', top: '1.8rem', left: '1.5rem',
-        color: 'var(--color-accent)', fontSize: '0.75rem',
-        textTransform: 'uppercase', letterSpacing: '0.15em',
-        zIndex: 10001
-      }}>
-        {project.title} — {activeIndex + 1} / {project.images.length}
-      </p>
-
-      {/* Hint */}
-      <p style={{
-        position: 'fixed', top: '1.8rem', left: '50%', transform: 'translateX(-50%)',
-        color: 'rgba(245,243,239,0.35)', fontSize: '0.7rem',
-        textTransform: 'uppercase', letterSpacing: '0.1em', zIndex: 10001
-      }}>
-        Click outside image or press Esc to close
-      </p>
-
-      {/* Main Image */}
-      <motion.div
-        key={activeIndex}
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: '900px', width: '100%', marginBottom: '1.5rem' }}
       >
-        <img
-          src={project.images[activeIndex]}
-          alt={`${project.title} - ${activeIndex + 1}`}
-          style={{ width: '100%', height: 'auto', maxHeight: '65vh', objectFit: 'contain', borderRadius: '12px' }}
-        />
-      </motion.div>
+        ✕ Close
+      </button>
 
-      {/* Navigation buttons */}
-      <div onClick={(e) => e.stopPropagation()} style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-        <button onClick={prev} style={{
-          background: 'none', border: '1px solid rgba(245,243,239,0.3)',
-          color: '#f5f3ef', fontSize: '1.2rem', cursor: 'pointer',
-          width: '44px', height: '44px', borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>←</button>
-        <button onClick={next} style={{
-          background: 'none', border: '1px solid rgba(245,243,239,0.3)',
-          color: '#f5f3ef', fontSize: '1.2rem', cursor: 'pointer',
-          width: '44px', height: '44px', borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>→</button>
-      </div>
+      {/* Main BIG-style Grid Container */}
+      <div className="big-modal-grid">
+        {/* LEFT SIDE: Project Details */}
+        <div className="big-modal-details">
+          <div style={{ marginBottom: '2rem' }}>
+            <span style={{
+              color: 'var(--color-accent)',
+              fontSize: '0.75rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              fontWeight: 600,
+              display: 'block',
+              marginBottom: '0.75rem'
+            }}>
+              {project.category} • {project.location}
+            </span>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
+              fontFamily: 'var(--font-serif)',
+              letterSpacing: '0.04em',
+              lineHeight: 1.2,
+              marginBottom: '1.5rem',
+              color: '#f5f3ef'
+            }}>
+              {project.title}
+            </h2>
+            <div style={{ height: '2px', width: '40px', background: 'var(--color-accent)', marginBottom: '1.5rem' }}></div>
+            <p className="uppercase" style={{
+              fontSize: '0.85rem',
+              lineHeight: 1.8,
+              letterSpacing: '0.05em',
+              opacity: 0.85,
+              color: '#f5f3ef',
+              marginBottom: '2rem'
+            }}>
+              {project.description}
+            </p>
+          </div>
 
-      {/* Thumbnail strip */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          display: 'flex', gap: '0.5rem', overflowX: 'auto',
-          maxWidth: '900px', width: '100%', paddingBottom: '0.5rem'
-        }}
-      >
-        {project.images.map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            alt={`thumb-${i}`}
-            onClick={() => setActiveIndex(i)}
-            style={{
-              width: '70px', height: '52px', objectFit: 'cover',
-              borderRadius: '6px', flexShrink: 0, cursor: 'pointer',
-              border: i === activeIndex ? '2px solid var(--color-accent)' : '2px solid transparent',
-              opacity: i === activeIndex ? 1 : 0.5,
-              transition: 'all 0.2s'
-            }}
-          />
-        ))}
+          {/* Architectural Specifications Table */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '1.2rem 1rem',
+            borderTop: '1px solid rgba(245, 243, 239, 0.15)',
+            paddingTop: '1.5rem',
+            marginBottom: '2.5rem'
+          }}>
+            <div>
+              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Location</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.location}</span>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Category</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.category}</span>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Year</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.year || '2023-2024'}</span>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Scope</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.scope || 'Architecture & Interior'}</span>
+            </div>
+          </div>
+
+          {/* Photo Counter */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justify: 'space-between',
+            borderTop: '1px solid rgba(245, 243, 239, 0.15)',
+            paddingTop: '1.2rem',
+            marginTop: 'auto'
+          }}>
+            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>
+              Photo {activeIndex + 1} of {project.images.length}
+            </span>
+          </div>
+        </div>
+
+        {/* RIGHT SIDE: Project Image Gallery */}
+        <div className="big-modal-gallery">
+          {/* Active Image Display */}
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justify: 'center',
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            maxHeight: 'calc(100vh - 160px)'
+          }}>
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeIndex}
+                src={project.images[activeIndex]}
+                alt={`${project.title} - ${activeIndex + 1}`}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.6)'
+                }}
+              />
+            </AnimatePresence>
+
+            {/* Navigation Arrow Left */}
+            <button
+              onClick={prevImage}
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(13,11,10,0.6)',
+                border: '1px solid rgba(245,243,239,0.2)',
+                color: '#f5f3ef',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justify: 'center',
+                backdropFilter: 'blur(4px)'
+              }}
+            >
+              ←
+            </button>
+
+            {/* Navigation Arrow Right */}
+            <button
+              onClick={nextImage}
+              style={{
+                position: 'absolute',
+                right: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(13,11,10,0.6)',
+                border: '1px solid rgba(245,243,239,0.2)',
+                color: '#f5f3ef',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justify: 'center',
+                backdropFilter: 'blur(4px)'
+              }}
+            >
+              →
+            </button>
+          </div>
+
+          {/* Thumbnail strip */}
+          <div style={{
+            display: 'flex',
+            gap: '0.6rem',
+            overflowX: 'auto',
+            width: '100%',
+            paddingTop: '1rem',
+            paddingBottom: '0.5rem'
+          }}>
+            {project.images.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`thumb-${i}`}
+                onClick={() => setActiveIndex(i)}
+                style={{
+                  width: '80px',
+                  height: '60px',
+                  objectFit: 'cover',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  border: i === activeIndex ? '2px solid var(--color-accent)' : '2px solid transparent',
+                  opacity: i === activeIndex ? 1 : 0.4,
+                  transition: 'all 0.2s'
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </motion.div>
   )
@@ -237,7 +379,7 @@ export default function Projects() {
         style={{ marginBottom: '4rem' }}
       >
         <div className="line-accent"></div>
-        <h2 className="text-title" style={{ marginBottom: '1rem' }}>Selected<br/>Projects</h2>
+        <h2 className="text-title" style={{ marginBottom: '1rem' }}>Projects</h2>
         <p className="uppercase" style={{ maxWidth: '600px', fontSize: '0.875rem', letterSpacing: '0.05em', lineHeight: 1.8 }}>
           A showcase of our recent architectural and interior design projects, tailored for real clients.
         </p>
@@ -274,7 +416,7 @@ export default function Projects() {
                   pointerEvents: 'none'
                 }}
                   className="hover-label"
-                >View All Photos</span>
+                >View Project</span>
               </div>
             </motion.div>
 
@@ -300,7 +442,7 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Lightbox */}
+      {/* BIG-style Project Modal */}
       <AnimatePresence>
         {lightboxProject && (
           <LightboxModal project={lightboxProject} onClose={() => setLightboxProject(null)} />
