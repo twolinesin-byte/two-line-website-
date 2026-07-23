@@ -310,7 +310,7 @@ function LightboxModal({ project, onClose }) {
             flex: 1,
             display: 'flex',
             alignItems: 'center',
-            justify: 'center',
+            justifyContent: 'center',
             position: 'relative',
             width: '100%',
             height: '100%',
@@ -330,7 +330,9 @@ function LightboxModal({ project, onClose }) {
                   maxHeight: '100%',
                   objectFit: 'contain',
                   borderRadius: '8px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.6)'
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.6)',
+                  display: 'block',
+                  margin: '0 auto'
                 }}
               />
             </AnimatePresence>
@@ -370,12 +372,14 @@ function LightboxModal({ project, onClose }) {
             </button>
           </div>
 
-          {/* Thumbnail strip */}
+          {/* Centered Thumbnail strip */}
           <div style={{
             display: 'flex',
             gap: '0.6rem',
             overflowX: 'auto',
             width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
             paddingTop: '1rem',
             paddingBottom: '0.5rem'
           }}>
