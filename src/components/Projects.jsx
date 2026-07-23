@@ -108,15 +108,19 @@ const projects = [
 function LightboxModal({ project, onClose }) {
   const [activeIndex, setActiveIndex] = useState(0)
 
-  // Keyboard navigation & Esc key
+  // Lock body scroll while modal is open & keyboard navigation
   React.useEffect(() => {
+    document.body.style.overflow = 'hidden'
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowLeft') setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
       if (e.key === 'ArrowRight') setActiveIndex((i) => (i + 1) % project.images.length)
     }
     window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
+    return () => {
+      document.body.style.overflow = 'auto'
+      window.removeEventListener('keydown', handleKey)
+    }
   }, [project, onClose])
 
   const prevImage = () => setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
@@ -146,19 +150,19 @@ function LightboxModal({ project, onClose }) {
         display: 'flex',
         alignItems: 'center',
         justify: 'space-between',
-        padding: '1rem 1.5rem',
-        borderBottom: '1px solid rgba(245, 243, 239, 0.12)',
+        padding: '0.8rem 1.5rem',
+        borderBottom: '1px solid rgba(245, 243, 239, 0.15)',
         backgroundColor: 'rgba(13, 11, 10, 0.98)',
         backdropFilter: 'blur(10px)',
         zIndex: 1000,
         position: 'relative'
       }}>
-        {/* Left: Back to Projects */}
+        {/* Left: Back to Projects Pill Button */}
         <button
           onClick={onClose}
           style={{
-            background: 'transparent',
-            border: 'none',
+            background: 'rgba(196, 164, 124, 0.15)',
+            border: '1px solid var(--color-accent)',
             color: '#f5f3ef',
             fontSize: '0.8rem',
             letterSpacing: '0.12em',
@@ -166,9 +170,12 @@ function LightboxModal({ project, onClose }) {
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.4rem',
-            fontWeight: 600,
-            opacity: 0.9
+            gap: '0.5rem',
+            fontWeight: 700,
+            padding: '0.5rem 1.2rem',
+            borderRadius: '20px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
+            transition: 'all 0.2s'
           }}
         >
           ← BACK TO PROJECTS
@@ -184,7 +191,7 @@ function LightboxModal({ project, onClose }) {
             fontSize: '0.8rem',
             fontWeight: 700,
             cursor: 'pointer',
-            padding: '0.45rem 1rem',
+            padding: '0.5rem 1.2rem',
             borderRadius: '20px',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
@@ -265,7 +272,7 @@ function LightboxModal({ project, onClose }) {
             </div>
           </div>
 
-          {/* Photo Counter */}
+          {/* Photo Counter & Additional Back Button */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -277,6 +284,22 @@ function LightboxModal({ project, onClose }) {
             <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>
               Photo {activeIndex + 1} of {project.images.length}
             </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: 'transparent',
+                border: '1px solid rgba(245, 243, 239, 0.3)',
+                color: '#f5f3ef',
+                fontSize: '0.75rem',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                padding: '0.4rem 0.9rem',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              ← BACK
+            </button>
           </div>
         </div>
 
@@ -315,23 +338,36 @@ function LightboxModal({ project, onClose }) {
             {/* Navigation Arrow Left */}
             <button
               onClick={prevImage}
+              aria-label="Previous Image"
               style={{
                 position: 'absolute',
-                left: '1rem',
+                left: '1.2rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'rgba(13,11,10,0.6)',
-                border: '1px solid rgba(245,243,239,0.2)',
-                color: '#f5f3ef',
-                width: '44px',
-                height: '44px',
+                background: 'rgba(13, 11, 10, 0.75)',
+                border: '2px solid var(--color-accent)',
+                color: 'var(--color-accent)',
+                width: '52px',
+                height: '52px',
                 borderRadius: '50%',
                 cursor: 'pointer',
-                fontSize: '1.2rem',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
                 display: 'flex',
                 alignItems: 'center',
                 justify: 'center',
-                backdropFilter: 'blur(4px)'
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
+                zIndex: 10,
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--color-accent)'
+                e.currentTarget.style.color = '#0d0b0a'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.75)'
+                e.currentTarget.style.color = 'var(--color-accent)'
               }}
             >
               ←
@@ -340,23 +376,36 @@ function LightboxModal({ project, onClose }) {
             {/* Navigation Arrow Right */}
             <button
               onClick={nextImage}
+              aria-label="Next Image"
               style={{
                 position: 'absolute',
-                right: '1rem',
+                right: '1.2rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'rgba(13,11,10,0.6)',
-                border: '1px solid rgba(245,243,239,0.2)',
-                color: '#f5f3ef',
-                width: '44px',
-                height: '44px',
+                background: 'rgba(13, 11, 10, 0.75)',
+                border: '2px solid var(--color-accent)',
+                color: 'var(--color-accent)',
+                width: '52px',
+                height: '52px',
                 borderRadius: '50%',
                 cursor: 'pointer',
-                fontSize: '1.2rem',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
                 display: 'flex',
                 alignItems: 'center',
                 justify: 'center',
-                backdropFilter: 'blur(4px)'
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
+                zIndex: 10,
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--color-accent)'
+                e.currentTarget.style.color = '#0d0b0a'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.75)'
+                e.currentTarget.style.color = 'var(--color-accent)'
               }}
             >
               →
@@ -393,6 +442,7 @@ function LightboxModal({ project, onClose }) {
             ))}
           </div>
         </div>
+      </div>
     </motion.div>,
     document.body
   )
