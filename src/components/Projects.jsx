@@ -339,28 +339,7 @@ function LightboxModal({ project, onClose }) {
             <button
               onClick={prevImage}
               aria-label="Previous Image"
-              style={{
-                position: 'absolute',
-                left: '1.2rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'rgba(13, 11, 10, 0.75)',
-                border: '2px solid var(--color-accent)',
-                color: 'var(--color-accent)',
-                width: '52px',
-                height: '52px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                justify: 'center',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
-                zIndex: 10,
-                transition: 'all 0.2s'
-              }}
+              className="modal-nav-arrow modal-nav-arrow-left"
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'var(--color-accent)'
                 e.currentTarget.style.color = '#0d0b0a'
@@ -377,28 +356,7 @@ function LightboxModal({ project, onClose }) {
             <button
               onClick={nextImage}
               aria-label="Next Image"
-              style={{
-                position: 'absolute',
-                right: '1.2rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'rgba(13, 11, 10, 0.75)',
-                border: '2px solid var(--color-accent)',
-                color: 'var(--color-accent)',
-                width: '52px',
-                height: '52px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                justify: 'center',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
-                zIndex: 10,
-                transition: 'all 0.2s'
-              }}
+              className="modal-nav-arrow modal-nav-arrow-right"
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'var(--color-accent)'
                 e.currentTarget.style.color = '#0d0b0a'
