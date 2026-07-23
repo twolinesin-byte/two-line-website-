@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const projects = [
@@ -121,7 +122,7 @@ function LightboxModal({ project, onClose }) {
   const prevImage = () => setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
   const nextImage = () => setActiveIndex((i) => (i + 1) % project.images.length)
 
-  return (
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -134,67 +135,74 @@ function LightboxModal({ project, onClose }) {
         width: '100vw',
         height: '100vh',
         backgroundColor: '#0d0b0a',
-        zIndex: 99999,
+        zIndex: 999999,
         display: 'flex',
+        flexDirection: 'column',
         overflow: 'hidden'
       }}
     >
-      {/* Fixed Exit / Close Button - Always pinned to top right */}
-      <button
-        onClick={onClose}
-        style={{
-          position: 'fixed',
-          top: '1.2rem',
-          right: '1.5rem',
-          background: 'var(--color-accent)',
-          border: 'none',
-          color: '#0d0b0a',
-          fontSize: '0.9rem',
-          fontWeight: 700,
-          cursor: 'pointer',
-          padding: '0.7rem 1.4rem',
-          borderRadius: '30px',
-          zIndex: 999999,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          boxShadow: '0 4px 25px rgba(0,0,0,0.7)',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase'
-        }}
-        title="Exit Project View (Esc)"
-      >
-        ✕ EXIT
-      </button>
+      {/* Modal Top Header Bar */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justify: 'space-between',
+        padding: '1rem 1.5rem',
+        borderBottom: '1px solid rgba(245, 243, 239, 0.12)',
+        backgroundColor: 'rgba(13, 11, 10, 0.98)',
+        backdropFilter: 'blur(10px)',
+        zIndex: 1000,
+        position: 'relative'
+      }}>
+        {/* Left: Back to Projects */}
+        <button
+          onClick={onClose}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: '#f5f3ef',
+            fontSize: '0.8rem',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            fontWeight: 600,
+            opacity: 0.9
+          }}
+        >
+          ← BACK TO PROJECTS
+        </button>
+
+        {/* Right: Close Button */}
+        <button
+          onClick={onClose}
+          style={{
+            background: 'var(--color-accent)',
+            border: 'none',
+            color: '#0d0b0a',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            padding: '0.45rem 1rem',
+            borderRadius: '20px',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.4)'
+          }}
+          title="Close (Esc)"
+        >
+          ✕ CLOSE
+        </button>
+      </div>
 
       {/* Main BIG-style Grid Container */}
       <div className="big-modal-grid">
         {/* LEFT SIDE: Project Details */}
         <div className="big-modal-details">
-          {/* Back to Projects Button */}
-          <button
-            onClick={onClose}
-            style={{
-              alignSelf: 'flex-start',
-              background: 'transparent',
-              border: '1px solid rgba(245, 243, 239, 0.3)',
-              color: '#f5f3ef',
-              fontSize: '0.75rem',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              padding: '0.5rem 1rem',
-              borderRadius: '20px',
-              cursor: 'pointer',
-              marginBottom: '1.5rem',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              transition: 'all 0.2s'
-            }}
-          >
-            ← BACK TO PROJECTS
-          </button>
-
           <div style={{ marginBottom: '2rem' }}>
             <span style={{
               color: 'var(--color-accent)',
@@ -257,7 +265,7 @@ function LightboxModal({ project, onClose }) {
             </div>
           </div>
 
-          {/* Photo Counter & Exit Button */}
+          {/* Photo Counter */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -269,22 +277,6 @@ function LightboxModal({ project, onClose }) {
             <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>
               Photo {activeIndex + 1} of {project.images.length}
             </span>
-            <button
-              onClick={onClose}
-              style={{
-                background: 'rgba(245, 243, 239, 0.1)',
-                border: '1px solid rgba(245, 243, 239, 0.2)',
-                color: '#f5f3ef',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                padding: '0.5rem 1rem',
-                borderRadius: '6px',
-                cursor: 'pointer'
-              }}
-            >
-              EXIT VIEW
-            </button>
           </div>
         </div>
 
@@ -299,7 +291,7 @@ function LightboxModal({ project, onClose }) {
             position: 'relative',
             width: '100%',
             height: '100%',
-            maxHeight: 'calc(100vh - 160px)'
+            maxHeight: 'calc(100vh - 200px)'
           }}>
             <AnimatePresence mode="wait">
               <motion.img
@@ -401,8 +393,8 @@ function LightboxModal({ project, onClose }) {
             ))}
           </div>
         </div>
-      </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   )
 }
 
