@@ -10,7 +10,6 @@ export default function Navbar() {
     { name: 'About', href: '/#about', isHash: true },
     { name: 'Projects', href: '/#projects', isHash: true },
     { name: 'Process', href: '/#process', isHash: true },
-    { name: 'Locations', href: '/locations', isHash: false },
     { name: 'Contact', href: '/#contact', isHash: true }
   ]
 

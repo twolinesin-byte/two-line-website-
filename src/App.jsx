@@ -4,8 +4,6 @@ import CanvasBackground from './components/CanvasBackground'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import LocationsList from './components/LocationsList'
-import LocationDetail from './components/LocationDetail'
 import Footer from './components/Footer'
 
 function ScrollToTop() {
@@ -25,8 +23,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/locations" element={<LocationsList />} />
-        <Route path="/locations/:id" element={<LocationDetail />} />
       </Routes>
       <Footer />
     </>
