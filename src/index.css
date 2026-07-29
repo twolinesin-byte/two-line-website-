@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
   transform-origin: top;
 }
 
-/* Glassmorphism */
+/* Glassmorphism & Liquid Glass */
 .glass-panel {
   background: rgba(13, 11, 10, 0.6);
   backdrop-filter: blur(10px);
@@ -156,6 +156,58 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(245, 243, 239, 0.1);
   padding: 3rem;
 }
+
+.liquid-glass-panel {
+  background: rgba(18, 15, 13, 0.55);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(196, 164, 124, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: var(--transition-smooth);
+}
+
+.liquid-glass-panel::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(196, 164, 124, 0.12) 0%,
+    rgba(245, 243, 239, 0.04) 35%,
+    transparent 70%
+  );
+  animation: liquidShimmer 14s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes liquidShimmer {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.liquid-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.2rem;
+  background: rgba(196, 164, 124, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(196, 164, 124, 0.4);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
 
 /* Forms */
 .form-input, .form-textarea {

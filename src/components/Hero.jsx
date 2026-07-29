@@ -10,6 +10,7 @@ export default function Hero() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         style={{ zIndex: 10 }}
       >
+        <div className="liquid-glass-badge" style={{ marginBottom: '1.5rem' }}>✨ Liquid Glass Architecture</div>
         <div className="line-accent" style={{ height: '4px', width: '80px', marginBottom: '2rem' }}></div>
         <h1 className="text-huge" style={{ marginBottom: '1rem' }}>
           PORT<br/>FOLIO
