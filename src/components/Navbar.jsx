@@ -5,6 +5,7 @@ import { HashLink } from 'react-router-hash-link'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [hoveredNav, setHoveredNav] = useState(null)
 
   const navLinks = [
     { name: 'About', href: '/#about', isHash: true },
@@ -14,7 +15,7 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="navbar ios-glass-nav">
+    <nav className="navbar ios-glass-nav" onMouseLeave={() => setHoveredNav(null)}>
       <div className="nav-logo-container">
         <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
           <h2 style={{ fontSize: '0.95rem', letterSpacing: '0.22em', fontWeight: 600, textTransform: 'uppercase' }}>
@@ -23,19 +24,43 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Desktop Menu */}
-      <div className="desktop-menu" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        {navLinks.map(link => (
-          link.isHash ? (
-            <HashLink key={link.name} smooth to={link.href} className="ios-nav-link">
-              {link.name}
-            </HashLink>
-          ) : (
-            <Link key={link.name} to={link.href} className="ios-nav-link">
-              {link.name}
-            </Link>
+      {/* Desktop Menu with Smooth Butter Sliding Glass Pill */}
+      <div className="desktop-menu" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', position: 'relative' }}>
+        {navLinks.map(link => {
+          const isHovered = hoveredNav === link.name
+          const Component = link.isHash ? HashLink : Link
+          return (
+            <Component
+              key={link.name}
+              smooth={link.isHash ? true : undefined}
+              to={link.href}
+              className="ios-nav-link"
+              onMouseEnter={() => setHoveredNav(link.name)}
+              style={{ position: 'relative', zIndex: 1 }}
+            >
+              <span style={{ position: 'relative', zIndex: 2 }}>{link.name}</span>
+              {isHovered && (
+                <motion.div
+                  layoutId="hoverGlassPill"
+                  className="ios-nav-hover-pill"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: '30px',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.35)',
+                    boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3)',
+                    zIndex: 1
+                  }}
+                />
+              )}
+            </Component>
           )
-        ))}
+        })}
       </div>
 
       {/* Mobile Hamburger Icon */}
@@ -81,4 +106,5 @@ export default function Navbar() {
     </nav>
   )
 }
+
 

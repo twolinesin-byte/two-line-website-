@@ -230,52 +230,40 @@ function LightboxModal({ project, onClose }) {
         position: 'relative'
       }}>
         {/* Left: Back to Projects Pill Button */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onClose}
+          className="ios-glass-btn"
           style={{
-            background: 'rgba(196, 164, 124, 0.15)',
-            border: '1px solid var(--color-accent)',
-            color: '#f5f3ef',
             fontSize: '0.8rem',
             letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
+            padding: '0.5rem 1.4rem',
             gap: '0.5rem',
-            fontWeight: 700,
-            padding: '0.5rem 1.2rem',
-            borderRadius: '20px',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
-            transition: 'all 0.2s'
+            fontWeight: 700
           }}
         >
           ← BACK TO PROJECTS
-        </button>
+        </motion.button>
 
         {/* Right: Close Button */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onClose}
+          className="ios-glass-btn"
           style={{
-            background: 'var(--color-accent)',
-            border: 'none',
-            color: '#0d0b0a',
             fontSize: '0.8rem',
-            fontWeight: 700,
-            cursor: 'pointer',
-            padding: '0.5rem 1.2rem',
-            borderRadius: '20px',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            display: 'flex',
-            alignItems: 'center',
+            padding: '0.5rem 1.4rem',
             gap: '0.4rem',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.4)'
+            fontWeight: 700,
+            background: 'linear-gradient(135deg, rgba(196, 164, 124, 0.4) 0%, rgba(196, 164, 124, 0.15) 100%)',
+            borderColor: 'rgba(196, 164, 124, 0.5)'
           }}
           title="Close (Esc)"
         >
           ✕ CLOSE
-        </button>
+        </motion.button>
       </div>
 
       {/* Main BIG-style Grid Container */}
@@ -550,9 +538,14 @@ export default function Projects() {
               <p className="uppercase" style={{ opacity: 0.8, letterSpacing: '0.05em', lineHeight: 1.8, marginBottom: '2rem', fontSize: '0.875rem' }}>
                 {project.description}
               </p>
-              <button className="btn-outline" onClick={() => setLightboxProject(project)}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-outline ios-glass-btn"
+                onClick={() => setLightboxProject(project)}
+              >
                 View Details
-              </button>
+              </motion.button>
             </motion.div>
           </div>
         ))}

@@ -101,9 +101,16 @@ export default function Contact() {
                 </p>
               )}
 
-              <button type="submit" className="btn-outline" style={{ width: '100%' }} disabled={status === 'sending'}>
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                type="submit"
+                className="btn-outline ios-glass-btn"
+                style={{ width: '100%' }}
+                disabled={status === 'sending'}
+              >
                 {status === 'sending' ? 'Sending...' : 'Send Message'}
-              </button>
+              </motion.button>
             </form>
           )}
         </motion.div>
