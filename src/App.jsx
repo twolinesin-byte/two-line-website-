@@ -14,11 +14,22 @@ function ScrollToTop() {
   return null;
 }
 
+function AmbientLiquidGlow() {
+  return (
+    <div className="ios-ambient-wrapper" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: -2, overflow: 'hidden' }}>
+      <div className="ios-glow-orb orb-1" />
+      <div className="ios-glow-orb orb-2" />
+      <div className="ios-glow-orb orb-3" />
+    </div>
+  )
+}
+
 function App() {
   return (
     <>
       <Preloader />
       <ScrollToTop />
+      <AmbientLiquidGlow />
       <CanvasBackground />
       <Navbar />
       <Routes>

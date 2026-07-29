@@ -14,22 +14,24 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="navbar">
-      <div style={{ borderBottom: '1px solid var(--color-text)', paddingBottom: '0.5rem', zIndex: 101 }}>
+    <nav className="navbar ios-glass-nav">
+      <div className="nav-logo-container">
         <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
-          <h2 style={{ fontSize: '1rem', letterSpacing: '0.2em' }}>TWO LINES STUDIO</h2>
+          <h2 style={{ fontSize: '0.95rem', letterSpacing: '0.22em', fontWeight: 600, textTransform: 'uppercase' }}>
+            TWO LINES STUDIO
+          </h2>
         </Link>
       </div>
 
       {/* Desktop Menu */}
-      <div className="desktop-menu" style={{ display: 'flex' }}>
+      <div className="desktop-menu" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         {navLinks.map(link => (
           link.isHash ? (
-            <HashLink key={link.name} smooth to={link.href} style={{ margin: '0 1rem', textDecoration: 'none', color: 'inherit', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            <HashLink key={link.name} smooth to={link.href} className="ios-nav-link">
               {link.name}
             </HashLink>
           ) : (
-            <Link key={link.name} to={link.href} style={{ margin: '0 1rem', textDecoration: 'none', color: 'inherit', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            <Link key={link.name} to={link.href} className="ios-nav-link">
               {link.name}
             </Link>
           )
@@ -38,27 +40,28 @@ export default function Navbar() {
 
       {/* Mobile Hamburger Icon */}
       <div className="mobile-menu-btn" style={{ zIndex: 101, cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
-        <div style={{ width: '25px', height: '2px', backgroundColor: 'var(--color-text)', marginBottom: '6px', transition: '0.3s', transform: isOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }}></div>
-        <div style={{ width: '25px', height: '2px', backgroundColor: 'var(--color-text)', marginBottom: '6px', opacity: isOpen ? 0 : 1, transition: '0.3s' }}></div>
-        <div style={{ width: '25px', height: '2px', backgroundColor: 'var(--color-text)', transition: '0.3s', transform: isOpen ? 'rotate(-45deg) translate(6px, -6px)' : 'none' }}></div>
+        <div style={{ width: '22px', height: '2px', backgroundColor: 'var(--color-text)', marginBottom: '5px', transition: '0.3s', transform: isOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }}></div>
+        <div style={{ width: '22px', height: '2px', backgroundColor: 'var(--color-text)', marginBottom: '5px', opacity: isOpen ? 0 : 1, transition: '0.3s' }}></div>
+        <div style={{ width: '22px', height: '2px', backgroundColor: 'var(--color-text)', transition: '0.3s', transform: isOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }}></div>
       </div>
 
       {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            style={{ position: 'absolute', top: '100%', left: 0, width: '100%', backgroundColor: 'rgba(13, 11, 10, 0.95)', backdropFilter: 'blur(10px)', padding: '2rem 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', borderBottom: '1px solid rgba(245, 243, 239, 0.1)' }}
+            initial={{ opacity: 0, y: -15, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -15, scale: 0.96 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="ios-mobile-dropdown"
           >
             {navLinks.map(link => (
               link.isHash ? (
-                <HashLink key={link.name} smooth to={link.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', color: 'inherit', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                <HashLink key={link.name} smooth to={link.href} onClick={() => setIsOpen(false)} className="ios-mobile-link">
                   {link.name}
                 </HashLink>
               ) : (
-                <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', color: 'inherit', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="ios-mobile-link">
                   {link.name}
                 </Link>
               )
@@ -78,3 +81,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
