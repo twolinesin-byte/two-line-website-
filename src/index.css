@@ -541,25 +541,44 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Responsive Utilities & Container Side Margins */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 10%;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 7vw;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
-    padding: 0 2.5rem;
+    padding: 0 2rem;
   }
   
   .navbar {
-    padding: 1.5rem 2.5rem;
+    padding: 1.2rem 1.8rem;
   }
 
   .section {
-    padding: 4rem 0;
+    padding: 4.5rem 0;
   }
   
   .text-huge {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-size: clamp(2.2rem, 10vw, 3.8rem);
   }
   
   .text-title {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
   }
   
   .grid-responsive {
@@ -585,8 +604,8 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 0;
   }
   
-  .glass-panel {
-    padding: 1.5rem;
+  .glass-panel, .liquid-glass-panel {
+    padding: 2rem 1.4rem;
   }
 }
 
