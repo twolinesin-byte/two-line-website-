@@ -609,7 +609,7 @@ h1, h2, h3, h4, h5, h6, p, span, a {
   }
 }
 
-/* BIG.dk Style Project Modal */
+/* BIG.dk Style Project Modal & Responsive Project Details */
 .big-modal-grid {
   display: grid;
   grid-template-columns: 420px 1fr;
@@ -629,6 +629,68 @@ h1, h2, h3, h4, h5, h6, p, span, a {
   scrollbar-width: thin;
 }
 
+.modal-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid rgba(245, 243, 239, 0.15);
+  background-color: rgba(13, 11, 10, 0.98);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-header-btn {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  padding: 0.5rem 1.4rem;
+  gap: 0.5rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.modal-divider {
+  height: 2px;
+  width: 40px;
+  background: var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+
+.modal-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1rem;
+  border-top: 1px solid rgba(245, 243, 239, 0.15);
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-details-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(245, 243, 239, 0.15);
+  padding-top: 1.2rem;
+  margin-top: auto;
+  width: 100%;
+}
+
+.modal-details-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: #f5f3ef;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .big-modal-gallery {
   display: flex;
   flex-direction: column;
@@ -642,23 +704,88 @@ h1, h2, h3, h4, h5, h6, p, span, a {
 @media (max-width: 900px) {
   .big-modal-grid {
     grid-template-columns: 1fr;
-    padding: 1rem;
+    padding: 1.25rem 1rem 2rem;
     overflow-y: auto;
     gap: 2rem;
     height: calc(100vh - 60px);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .big-modal-details {
     overflow-y: visible;
     padding-right: 0;
     height: auto;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .modal-divider {
+    margin: 0 auto 1.5rem !important;
+  }
+
+  .modal-specs-grid {
+    text-align: center;
+  }
+
+  .modal-details-footer {
+    justify-content: center;
+    gap: 1.5rem;
   }
 
   .big-modal-gallery {
-    height: 420px;
+    height: 380px;
     overflow: visible;
     position: relative;
     width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .project-item-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+  }
+  
+  .project-item-info p,
+  .project-item-info h3 {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-header-bar {
+    padding: 0.6rem 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .modal-header-btn {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  .big-modal-grid {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .modal-details-footer {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
   }
 }
 
@@ -678,7 +805,7 @@ h1, h2, h3, h4, h5, h6, p, span, a {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify: 'center';
+  justify-content: center;
   backdrop-filter: blur(8px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   z-index: 50;

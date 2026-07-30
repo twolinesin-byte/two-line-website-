@@ -218,30 +218,13 @@ function LightboxModal({ project, onClose }) {
       }}
     >
       {/* Modal Top Header Bar */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justify: 'space-between',
-        padding: '0.8rem 1.5rem',
-        borderBottom: '1px solid rgba(245, 243, 239, 0.15)',
-        backgroundColor: 'rgba(13, 11, 10, 0.98)',
-        backdropFilter: 'blur(10px)',
-        zIndex: 1000,
-        position: 'relative'
-      }}>
+      <div className="modal-header-bar">
         {/* Left: Back to Projects Pill Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onClose}
-          className="ios-glass-btn"
-          style={{
-            fontSize: '0.8rem',
-            letterSpacing: '0.12em',
-            padding: '0.5rem 1.4rem',
-            gap: '0.5rem',
-            fontWeight: 700
-          }}
+          className="ios-glass-btn modal-header-btn"
         >
           ← BACK TO PROJECTS
         </motion.button>
@@ -251,12 +234,8 @@ function LightboxModal({ project, onClose }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onClose}
-          className="ios-glass-btn"
+          className="ios-glass-btn modal-header-btn"
           style={{
-            fontSize: '0.8rem',
-            padding: '0.5rem 1.4rem',
-            gap: '0.4rem',
-            fontWeight: 700,
             background: 'linear-gradient(135deg, rgba(196, 164, 124, 0.4) 0%, rgba(196, 164, 124, 0.15) 100%)',
             borderColor: 'rgba(196, 164, 124, 0.5)'
           }}
@@ -270,7 +249,7 @@ function LightboxModal({ project, onClose }) {
       <div className="big-modal-grid">
         {/* LEFT SIDE: Project Details */}
         <div className="big-modal-details">
-          <div style={{ marginBottom: '2rem' }}>
+          <div style={{ marginBottom: '2rem', width: '100%' }}>
             <span style={{
               color: 'var(--color-accent)',
               fontSize: '0.75rem',
@@ -282,17 +261,10 @@ function LightboxModal({ project, onClose }) {
             }}>
               {project.category} • {project.location}
             </span>
-            <h2 style={{
-              fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
-              fontFamily: 'var(--font-serif)',
-              letterSpacing: '0.04em',
-              lineHeight: 1.2,
-              marginBottom: '1.5rem',
-              color: '#f5f3ef'
-            }}>
+            <h2 className="modal-details-title">
               {project.title}
             </h2>
-            <div style={{ height: '2px', width: '40px', background: 'var(--color-accent)', marginBottom: '1.5rem' }}></div>
+            <div className="modal-divider"></div>
             <p className="uppercase" style={{
               fontSize: '0.85rem',
               lineHeight: 1.8,
@@ -306,14 +278,7 @@ function LightboxModal({ project, onClose }) {
           </div>
 
           {/* Architectural Specifications Table */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '1.2rem 1rem',
-            borderTop: '1px solid rgba(245, 243, 239, 0.15)',
-            paddingTop: '1.5rem',
-            marginBottom: '2.5rem'
-          }}>
+          <div className="modal-specs-grid">
             <div>
               <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Location</span>
               <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.location}</span>
@@ -333,14 +298,7 @@ function LightboxModal({ project, onClose }) {
           </div>
 
           {/* Photo Counter & Additional Back Button */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justify: 'space-between',
-            borderTop: '1px solid rgba(245, 243, 239, 0.15)',
-            paddingTop: '1.2rem',
-            marginTop: 'auto'
-          }}>
+          <div className="modal-details-footer">
             <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>
               Photo {activeIndex + 1} of {project.images.length}
             </span>
