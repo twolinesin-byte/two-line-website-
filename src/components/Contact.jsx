@@ -35,7 +35,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section container" style={{ zIndex: 10, position: 'relative' }}>
+    <section id="contact" className="section container" style={{ zIndex: 10, position: 'relative', marginTop: '4rem', marginBottom: '6rem' }}>
       <div className="grid-responsive">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

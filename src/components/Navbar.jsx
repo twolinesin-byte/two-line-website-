@@ -10,6 +10,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'About', href: '/#about', isHash: true },
     { name: 'Projects', href: '/#projects', isHash: true },
+    { name: '3D Studio', href: '/#furniture', isHash: true },
     { name: 'Process', href: '/#process', isHash: true },
     { name: 'Contact', href: '/#contact', isHash: true }
   ]

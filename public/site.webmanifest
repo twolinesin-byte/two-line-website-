@@ -1,0 +1,17 @@
+{
+  "name": "Two Lines Studio",
+  "short_name": "Two Lines",
+  "description": "Multidisciplinary Design Consultancy in Architecture, Interior, and Landscape.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0b0a",
+  "theme_color": "#c4a47c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

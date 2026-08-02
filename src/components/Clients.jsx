@@ -4,7 +4,7 @@ import { Building2, Home, Store } from 'lucide-react'
 
 export default function Clients() {
   return (
-    <section id="clients" className="section container" style={{ zIndex: 10, position: 'relative' }}>
+    <section id="clients" className="section container" style={{ zIndex: 10, position: 'relative', marginBottom: '6rem' }}>
       <div className="grid-responsive" style={{ alignItems: 'center' }}>
         
         <motion.div

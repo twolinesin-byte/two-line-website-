@@ -1,0 +1,6 @@
+# Robots.txt for Two Lines Studio (https://twolines.in)
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://twolines.in/sitemap.xml
