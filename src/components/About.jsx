@@ -51,15 +51,14 @@ function FlipCardRhujul() {
               borderRadius: '24px'
             }}
           >
-            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px', marginBottom: '1.2rem', width: '100%', height: '260px' }}>
+            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px', marginBottom: '1.2rem', width: '100%', height: '260px', background: 'rgba(0, 0, 0, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img
                 src="/rhujul_patel.jpg"
                 alt="Rhujul Patel"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'top',
+                  objectFit: 'contain',
                   filter: 'brightness(0.95) contrast(1.05)'
                 }}
               />
