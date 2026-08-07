@@ -59,6 +59,7 @@ function FlipCardRhujul() {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                  objectPosition: 'top',
                   filter: 'brightness(0.95) contrast(1.05)'
                 }}
               />
