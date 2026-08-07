@@ -25,6 +25,26 @@ function AmbientLiquidGlow() {
 }
 
 function App() {
+  // Global Anti-Download Security: Disable right-click context menu and dragging on images
+  useEffect(() => {
+    const preventContextMenu = (e) => {
+      if (e.target.tagName === 'IMG' || e.target.closest('.big-modal-gallery')) {
+        e.preventDefault()
+      }
+    }
+    const preventDragStart = (e) => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault()
+      }
+    }
+    document.addEventListener('contextmenu', preventContextMenu)
+    document.addEventListener('dragstart', preventDragStart)
+    return () => {
+      document.removeEventListener('contextmenu', preventContextMenu)
+      document.removeEventListener('dragstart', preventDragStart)
+    }
+  }, [])
+
   return (
     <>
       <Preloader />

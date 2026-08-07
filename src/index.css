@@ -886,3 +886,16 @@ h1, h2, h3, h4, h5, h6, p, span, a {
     right: 0.4rem;
   }
 }
+
+/* Strict Image Security & Anti-Download Protection */
+img, .protected-image, .big-modal-gallery img {
+  -webkit-touch-callout: none !important; /* Disable iOS touch & hold context menu */
+  -webkit-user-select: none !important;   /* Disable text/image selection */
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;     /* Disable WebKit image drag */
+  user-drag: none !important;
+  pointer-events: auto;
+}
