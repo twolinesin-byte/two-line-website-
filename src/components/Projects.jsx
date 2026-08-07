@@ -181,14 +181,6 @@ function LightboxModal({ project, onClose }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(null)
   const [touchEnd, setTouchEnd] = useState(null)
-  const [zoomScale, setZoomScale] = useState(1)
-  const [pinchDist, setPinchDist] = useState(null)
-  const [lastTap, setLastTap] = useState(0)
-
-  // Reset zoom scale whenever active photo changes
-  React.useEffect(() => {
-    setZoomScale(1)
-  }, [activeIndex])
 
   // Lock body scroll while modal is open & keyboard navigation
   React.useEffect(() => {
@@ -196,11 +188,9 @@ function LightboxModal({ project, onClose }) {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowLeft') {
-        setZoomScale(1)
         setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
       }
       if (e.key === 'ArrowRight') {
-        setZoomScale(1)
         setActiveIndex((i) => (i + 1) % project.images.length)
       }
     }
@@ -212,55 +202,23 @@ function LightboxModal({ project, onClose }) {
   }, [project, onClose])
 
   const prevImage = () => {
-    setZoomScale(1)
     setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
   }
   const nextImage = () => {
-    setZoomScale(1)
     setActiveIndex((i) => (i + 1) % project.images.length)
   }
 
-  const toggleZoom = () => {
-    setZoomScale((prev) => (prev > 1 ? 1 : 2.2))
-  }
-
-  // Swipe & Pinch-Zoom handling for touch screens
+  // Swipe handling for touch screens
   const handleTouchStart = (e) => {
-    if (e.touches.length === 2) {
-      const dist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      )
-      setPinchDist(dist)
-    } else if (e.touches.length === 1) {
-      const now = Date.now()
-      if (now - lastTap < 300) {
-        toggleZoom()
-      } else {
-        setTouchEnd(null)
-        setTouchStart(e.targetTouches[0].clientX)
-      }
-      setLastTap(now)
-    }
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
   }
 
   const handleTouchMove = (e) => {
-    if (e.touches.length === 2 && pinchDist) {
-      const currentDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      )
-      const delta = currentDist - pinchDist
-      setPinchDist(currentDist)
-      setZoomScale((prev) => Math.min(Math.max(prev + delta * 0.008, 1), 3))
-    } else if (e.touches.length === 1 && zoomScale === 1) {
-      setTouchEnd(e.targetTouches[0].clientX)
-    }
+    setTouchEnd(e.targetTouches[0].clientX)
   }
 
   const handleTouchEnd = () => {
-    setPinchDist(null)
-    if (zoomScale > 1) return // Prevent swipe photo switch while zoomed in
     if (!touchStart || !touchEnd) return
     const distance = touchStart - touchEnd
     const minSwipeDistance = 40
@@ -339,7 +297,7 @@ function LightboxModal({ project, onClose }) {
 
       {/* Main BIG-style Grid Container */}
       <div className="big-modal-grid">
-        {/* LEFT SIDE (On Mobile: Below Gallery): Project Details */}
+        {/* LEFT SIDE (On Mobile: Top): Project Details */}
         <div className="big-modal-details">
           <div style={{ marginBottom: '1.5rem', width: '100%' }}>
             <span style={{
@@ -391,7 +349,7 @@ function LightboxModal({ project, onClose }) {
           </div>
         </div>
 
-        {/* RIGHT SIDE (On Mobile: Above Details): Project Image Gallery */}
+        {/* RIGHT SIDE (On Mobile: Below Details): Project Image Gallery */}
         <div className="big-modal-gallery">
           {/* Active Image Display */}
           <div
@@ -409,40 +367,12 @@ function LightboxModal({ project, onClose }) {
               width: '100%',
               maxWidth: '100%',
               height: '100%',
-              minHeight: '250px',
-              maxHeight: 'calc(100vh - 220px)',
+              minHeight: '300px',
               boxSizing: 'border-box',
               touchAction: 'pan-y',
-              overflow: zoomScale > 1 ? 'auto' : 'hidden'
+              overflow: 'hidden'
             }}
           >
-            {/* Interactive Zoom Control Badge */}
-            <button
-              onClick={toggleZoom}
-              aria-label="Toggle Zoom"
-              style={{
-                position: 'absolute',
-                top: '0.6rem',
-                left: '0.6rem',
-                background: zoomScale > 1 ? 'var(--color-accent)' : 'rgba(13, 11, 10, 0.8)',
-                color: zoomScale > 1 ? '#0d0b0a' : '#f5f3ef',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(196, 164, 124, 0.4)',
-                fontSize: '0.68rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                padding: '0.3rem 0.75rem',
-                borderRadius: '20px',
-                cursor: 'pointer',
-                zIndex: 15,
-                transition: 'all 0.2s',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
-              }}
-            >
-              🔍 {zoomScale > 1 ? 'Reset Zoom' : 'Zoom 2x'}
-            </button>
-
             {/* Transparent Guard Overlay (Anti-Download Protection) */}
             <div
               onContextMenu={(e) => e.preventDefault()}
@@ -450,8 +380,7 @@ function LightboxModal({ project, onClose }) {
               style={{
                 position: 'absolute',
                 inset: 0,
-                zIndex: 5,
-                pointerEvents: zoomScale > 1 ? 'none' : 'auto'
+                zIndex: 5
               }}
             />
 
@@ -461,7 +390,7 @@ function LightboxModal({ project, onClose }) {
                 src={project.images[activeIndex]}
                 alt={`${project.title} - ${activeIndex + 1}`}
                 initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: zoomScale }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.25 }}
                 onContextMenu={(e) => e.preventDefault()}
@@ -469,12 +398,13 @@ function LightboxModal({ project, onClose }) {
                 style={{
                   maxWidth: '100%',
                   maxHeight: '100%',
+                  width: 'auto',
+                  height: 'auto',
                   objectFit: 'contain',
                   borderRadius: '12px',
                   boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
                   display: 'block',
                   margin: '0 auto',
-                  cursor: zoomScale > 1 ? 'zoom-out' : 'zoom-in',
                   WebkitUserSelect: 'none',
                   userSelect: 'none',
                   WebkitTouchCallout: 'none',

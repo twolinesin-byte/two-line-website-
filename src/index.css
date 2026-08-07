@@ -753,25 +753,25 @@ h1, h2, h3, h4, h5, h6, p, span, a {
     box-sizing: border-box;
   }
 
-  .big-modal-gallery {
-    order: 1; /* Gallery image comes FIRST on mobile */
-    height: auto;
-    min-height: 250px;
-    max-height: 52vh;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
   .big-modal-details {
-    order: 2; /* Text details come BELOW gallery on mobile */
+    order: 1; /* Project details text comes FIRST (on top) on mobile */
     overflow-y: visible;
     padding-right: 0;
     height: auto;
     text-align: left !important;
     align-items: flex-start !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .big-modal-gallery {
+    order: 2; /* Image gallery comes BELOW project details on mobile */
+    height: auto;
+    min-height: 320px;
+    max-height: 65vh;
+    overflow: visible;
+    position: relative;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
