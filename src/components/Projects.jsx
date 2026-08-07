@@ -244,15 +244,32 @@ function LightboxModal({ project, onClose }) {
     >
       {/* Modal Top Header Bar */}
       <div className="modal-header-bar">
-        {/* Left: Back to Projects Pill Button */}
+        {/* Left: Back Pill Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onClose}
           className="ios-glass-btn modal-header-btn"
         >
-          ← BACK TO PROJECTS
+          ← BACK
         </motion.button>
+
+        {/* Center: Project Title */}
+        <div style={{
+          textAlign: 'center',
+          opacity: 0.9,
+          fontSize: '0.78rem',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: 'var(--color-accent)',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          padding: '0 0.5rem',
+          maxWidth: '50%'
+        }}>
+          {project.title}
+        </div>
 
         {/* Right: Close Button */}
         <motion.button
@@ -272,9 +289,9 @@ function LightboxModal({ project, onClose }) {
 
       {/* Main BIG-style Grid Container */}
       <div className="big-modal-grid">
-        {/* LEFT SIDE: Project Details */}
+        {/* LEFT SIDE (On Mobile: Below Gallery): Project Details */}
         <div className="big-modal-details">
-          <div style={{ marginBottom: '2rem', width: '100%' }}>
+          <div style={{ marginBottom: '1.5rem', width: '100%' }}>
             <span style={{
               color: 'var(--color-accent)',
               fontSize: '0.75rem',
@@ -282,7 +299,7 @@ function LightboxModal({ project, onClose }) {
               letterSpacing: '0.15em',
               fontWeight: 600,
               display: 'block',
-              marginBottom: '0.75rem'
+              marginBottom: '0.5rem'
             }}>
               {project.category} • {project.location}
             </span>
@@ -292,61 +309,39 @@ function LightboxModal({ project, onClose }) {
             <div className="modal-divider"></div>
             <p className="uppercase" style={{
               fontSize: '0.85rem',
-              lineHeight: 1.8,
-              letterSpacing: '0.05em',
+              lineHeight: 1.7,
+              letterSpacing: '0.04em',
               opacity: 0.85,
-              color: '#f5f3ef',
-              marginBottom: '2rem'
+              color: '#e2dfd7',
+              marginBottom: '1.5rem',
+              textAlign: 'left'
             }}>
               {project.description}
             </p>
           </div>
 
-          {/* Architectural Specifications Table */}
+          {/* Architectural Specifications Grid */}
           <div className="modal-specs-grid">
             <div>
-              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Location</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.location}</span>
+              <span className="spec-label">Location</span>
+              <span className="spec-value">{project.location}</span>
             </div>
             <div>
-              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Category</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.category}</span>
+              <span className="spec-label">Category</span>
+              <span className="spec-value">{project.category}</span>
             </div>
             <div>
-              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Year</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.year || '2023-2024'}</span>
+              <span className="spec-label">Year</span>
+              <span className="spec-value">{project.year || '2023-2024'}</span>
             </div>
             <div>
-              <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.5, display: 'block' }}>Scope</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.05em' }}>{project.scope || 'Architecture & Interior'}</span>
+              <span className="spec-label">Scope</span>
+              <span className="spec-value">{project.scope || 'Architecture & Interior'}</span>
             </div>
-          </div>
-
-          {/* Photo Counter & Additional Back Button */}
-          <div className="modal-details-footer">
-            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>
-              Photo {activeIndex + 1} of {project.images.length}
-            </span>
-            <button
-              onClick={onClose}
-              style={{
-                background: 'transparent',
-                border: '1px solid rgba(245, 243, 239, 0.3)',
-                color: '#f5f3ef',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                padding: '0.4rem 0.9rem',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              ← BACK
-            </button>
           </div>
         </div>
 
-        {/* RIGHT SIDE: Project Image Gallery */}
+        {/* RIGHT SIDE (On Mobile: Above Details): Project Image Gallery */}
         <div className="big-modal-gallery">
           {/* Active Image Display */}
           <div
@@ -362,7 +357,8 @@ function LightboxModal({ project, onClose }) {
               width: '100%',
               maxWidth: '100%',
               height: '100%',
-              maxHeight: 'calc(100vh - 200px)',
+              minHeight: '250px',
+              maxHeight: 'calc(100vh - 220px)',
               boxSizing: 'border-box',
               touchAction: 'pan-y'
             }}
@@ -380,13 +376,32 @@ function LightboxModal({ project, onClose }) {
                   maxWidth: '100%',
                   maxHeight: '100%',
                   objectFit: 'contain',
-                  borderRadius: '8px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.6)',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
                   display: 'block',
                   margin: '0 auto'
                 }}
               />
             </AnimatePresence>
+
+            {/* Photo Counter Pill Badge */}
+            <div style={{
+              position: 'absolute',
+              top: '0.6rem',
+              right: '0.6rem',
+              background: 'rgba(13, 11, 10, 0.8)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              border: '1px solid rgba(196, 164, 124, 0.35)',
+              color: '#f5f3ef',
+              fontSize: '0.68rem',
+              letterSpacing: '0.1em',
+              padding: '0.3rem 0.7rem',
+              borderRadius: '20px',
+              zIndex: 10
+            }}>
+              {activeIndex + 1} / {project.images.length}
+            </div>
 
             {/* Navigation Arrow Left */}
             <button
@@ -398,7 +413,7 @@ function LightboxModal({ project, onClose }) {
                 e.currentTarget.style.color = '#0d0b0a'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.75)'
+                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.85)'
                 e.currentTarget.style.color = 'var(--color-accent)'
               }}
             >
@@ -415,7 +430,7 @@ function LightboxModal({ project, onClose }) {
                 e.currentTarget.style.color = '#0d0b0a'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.75)'
+                e.currentTarget.style.background = 'rgba(13, 11, 10, 0.85)'
                 e.currentTarget.style.color = 'var(--color-accent)'
               }}
             >
@@ -424,21 +439,7 @@ function LightboxModal({ project, onClose }) {
           </div>
 
           {/* Centered / Scrollable Thumbnail strip */}
-          <div style={{
-            display: 'flex',
-            gap: '0.6rem',
-            overflowX: 'auto',
-            width: '100%',
-            maxWidth: '100%',
-            justifyContent: project.images.length > 5 ? 'flex-start' : 'center',
-            alignItems: 'center',
-            paddingTop: '0.8rem',
-            paddingBottom: '0.5rem',
-            paddingLeft: '0.5rem',
-            paddingRight: '0.5rem',
-            boxSizing: 'border-box',
-            WebkitOverflowScrolling: 'touch'
-          }}>
+          <div className="modal-thumbnail-strip">
             {project.images.map((img, i) => (
               <img
                 key={i}
@@ -446,14 +447,14 @@ function LightboxModal({ project, onClose }) {
                 alt={`thumb-${i}`}
                 onClick={() => setActiveIndex(i)}
                 style={{
-                  width: '80px',
-                  height: '60px',
+                  width: '72px',
+                  height: '52px',
                   objectFit: 'cover',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   flexShrink: 0,
                   border: i === activeIndex ? '2px solid var(--color-accent)' : '2px solid transparent',
-                  opacity: i === activeIndex ? 1 : 0.4,
+                  opacity: i === activeIndex ? 1 : 0.45,
                   transition: 'all 0.2s'
                 }}
               />
