@@ -706,11 +706,13 @@ h1, h2, h3, h4, h5, h6, p, span, a {
 @media (max-width: 900px) {
   .big-modal-grid {
     grid-template-columns: 1fr;
-    padding: 1.25rem 1rem 2rem;
+    padding: 1rem 0.75rem 1.5rem;
     overflow-y: auto;
-    gap: 2rem;
-    height: calc(100vh - 60px);
+    overflow-x: hidden;
+    gap: 1.5rem;
+    height: calc(100% - 60px);
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 
@@ -721,6 +723,7 @@ h1, h2, h3, h4, h5, h6, p, span, a {
     text-align: center;
     align-items: center;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 
@@ -738,10 +741,14 @@ h1, h2, h3, h4, h5, h6, p, span, a {
   }
 
   .big-modal-gallery {
-    height: 380px;
-    overflow: visible;
+    height: auto;
+    min-height: 260px;
+    max-height: 55vh;
+    overflow: hidden;
     position: relative;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -781,7 +788,7 @@ h1, h2, h3, h4, h5, h6, p, span, a {
   }
 
   .big-modal-grid {
-    padding: 1rem 0.75rem 2rem;
+    padding: 0.75rem 0.5rem 1.5rem;
   }
 
   .modal-details-footer {

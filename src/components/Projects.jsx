@@ -179,6 +179,8 @@ const projects = [
 
 function LightboxModal({ project, onClose }) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
 
   // Lock body scroll while modal is open & keyboard navigation
   React.useEffect(() => {
@@ -198,6 +200,27 @@ function LightboxModal({ project, onClose }) {
   const prevImage = () => setActiveIndex((i) => (i - 1 + project.images.length) % project.images.length)
   const nextImage = () => setActiveIndex((i) => (i + 1) % project.images.length)
 
+  // Swipe handling for phone touch screens
+  const handleTouchStart = (e) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const minSwipeDistance = 40
+    if (distance > minSwipeDistance) {
+      nextImage()
+    } else if (distance < -minSwipeDistance) {
+      prevImage()
+    }
+  }
+
   return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
@@ -208,8 +231,10 @@ function LightboxModal({ project, onClose }) {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100vw',
-        height: '100vh',
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%',
         backgroundColor: '#0d0b0a',
         zIndex: 999999,
         display: 'flex',
@@ -324,16 +349,24 @@ function LightboxModal({ project, onClose }) {
         {/* RIGHT SIDE: Project Image Gallery */}
         <div className="big-modal-gallery">
           {/* Active Image Display */}
-          <div style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            maxHeight: 'calc(100vh - 200px)'
-          }}>
+          <div
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              width: '100%',
+              maxWidth: '100%',
+              height: '100%',
+              maxHeight: 'calc(100vh - 200px)',
+              boxSizing: 'border-box',
+              touchAction: 'pan-y'
+            }}
+          >
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeIndex}
@@ -390,16 +423,21 @@ function LightboxModal({ project, onClose }) {
             </button>
           </div>
 
-          {/* Centered Thumbnail strip */}
+          {/* Centered / Scrollable Thumbnail strip */}
           <div style={{
             display: 'flex',
             gap: '0.6rem',
             overflowX: 'auto',
             width: '100%',
-            justifyContent: 'center',
+            maxWidth: '100%',
+            justifyContent: project.images.length > 5 ? 'flex-start' : 'center',
             alignItems: 'center',
-            paddingTop: '1rem',
-            paddingBottom: '0.5rem'
+            paddingTop: '0.8rem',
+            paddingBottom: '0.5rem',
+            paddingLeft: '0.5rem',
+            paddingRight: '0.5rem',
+            boxSizing: 'border-box',
+            WebkitOverflowScrolling: 'touch'
           }}>
             {project.images.map((img, i) => (
               <img
