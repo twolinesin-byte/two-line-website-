@@ -896,6 +896,5 @@ img, .protected-image, .big-modal-gallery img {
   -ms-user-select: none !important;
   user-select: none !important;
   -webkit-user-drag: none !important;     /* Disable WebKit image drag */
-  user-drag: none !important;
   pointer-events: auto;
 }
