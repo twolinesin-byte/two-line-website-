@@ -23,8 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 .env
-
-# 3D raw vendor models & heavy temporary assets
-/glb/
-*.vnd.glb
-
