@@ -4,8 +4,8 @@ import { OrbitControls, ContactShadows } from '@react-three/drei'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
-import { motion, AnimatePresence } from 'framer-motion'
-import { RotateCw, Upload, RefreshCw, Box, Sparkles, Info, Check } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { RotateCw, RefreshCw, Box, Check } from 'lucide-react'
 
 // Material Presets
 const MATERIAL_FINISHES = [
@@ -23,55 +23,16 @@ const LIGHTING_MODES = [
   { id: 'blueprint', name: 'Cyber Minimal', ambient: 0.4, dir: 1.0, dirColor: '#c4a47c', bg: '#07090e' }
 ]
 
+// 3D Model Presets (Including GLB models from glb folder)
+const PRESET_MODELS = [
+  { id: 'chair', name: 'Lounge Chair GLB', url: '/glb/chair.glb', isGlb: true },
+  { id: 'lowplat', name: 'Low Platform GLB', url: '/glb/low plat.glb', isGlb: true },
+  { id: 'desk', name: 'Monolith Desk', isGlb: false },
+  { id: 'sculptural', name: 'Dining Chair', isGlb: false },
+  { id: 'lamp', name: 'Arc Floor Lamp', isGlb: false }
+]
+
 // Procedural 3D Furniture Presets
-function AtelierLoungeChair({ finish, wireframe }) {
-  const matProps = {
-    color: finish.color,
-    roughness: finish.roughness,
-    metalness: finish.metalness,
-    wireframe
-  }
-
-  const woodProps = {
-    color: '#3d2b1f',
-    roughness: 0.4,
-    wireframe
-  }
-
-  return (
-    <group position={[0, 0, 0]}>
-      {/* Seat Cushion */}
-      <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.4, 0.22, 1.4]} />
-        <meshStandardMaterial {...matProps} />
-      </mesh>
-      {/* Backrest */}
-      <mesh position={[0, 1.0, -0.6]} rotation={[-0.15, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.4, 0.9, 0.2]} />
-        <meshStandardMaterial {...matProps} />
-      </mesh>
-      {/* Armrests */}
-      <mesh position={[-0.72, 0.75, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.1, 0.1, 1.4]} />
-        <meshStandardMaterial {...woodProps} />
-      </mesh>
-      <mesh position={[0.72, 0.75, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.1, 0.1, 1.4]} />
-        <meshStandardMaterial {...woodProps} />
-      </mesh>
-      {/* Wooden Legs */}
-      {[-0.6, 0.6].map((x, i) =>
-        [-0.55, 0.55].map((z, j) => (
-          <mesh key={`${i}-${j}`} position={[x, 0.18, z]} castShadow>
-            <cylinderGeometry args={[0.04, 0.025, 0.45, 16]} />
-            <meshStandardMaterial {...woodProps} />
-          </mesh>
-        ))
-      )}
-    </group>
-  )
-}
-
 function MonolithDesk({ finish, wireframe }) {
   const matProps = {
     color: finish.color,
@@ -185,7 +146,7 @@ function ArcFloorLamp({ finish, wireframe }) {
 }
 
 // Loaded Custom Model (GLB/GLTF/OBJ) Loader component
-function LoadedModel({ url, fileType, wireframe }) {
+function LoadedModel({ url, fileType = 'glb', wireframe }) {
   const [scene, setScene] = useState(null)
 
   useEffect(() => {
@@ -248,7 +209,7 @@ function LoadedModel({ url, fileType, wireframe }) {
           setScene(loadedScene)
         },
         undefined,
-        (err) => console.error('Error loading GLTF file:', err)
+        (err) => console.error('Error loading GLTF/GLB file:', err)
       )
     }
   }, [url, fileType, wireframe])
@@ -257,8 +218,9 @@ function LoadedModel({ url, fileType, wireframe }) {
 }
 
 // Main 3D Rotary Stage
-function Rotary3DStage({ selectedPreset, customModel, finish, wireframe, lightingMode, autoRotate, controlsRef }) {
+function Rotary3DStage({ selectedPreset, finish, wireframe, lightingMode, autoRotate, controlsRef }) {
   const lighting = LIGHTING_MODES.find((l) => l.id === lightingMode) || LIGHTING_MODES[0]
+  const preset = PRESET_MODELS.find((p) => p.id === selectedPreset) || PRESET_MODELS[0]
 
   return (
     <>
@@ -274,11 +236,10 @@ function Rotary3DStage({ selectedPreset, customModel, finish, wireframe, lightin
       <directionalLight position={[-8, 6, -8]} intensity={0.4} color="#a0b0d0" />
 
       {/* Render Model */}
-      {customModel ? (
-        <LoadedModel url={customModel.url} fileType={customModel.fileType} finish={finish} wireframe={wireframe} />
+      {preset.isGlb ? (
+        <LoadedModel url={preset.url} fileType="glb" finish={finish} wireframe={wireframe} />
       ) : (
         <>
-          {selectedPreset === 'chair' && <AtelierLoungeChair finish={finish} wireframe={wireframe} />}
           {selectedPreset === 'desk' && <MonolithDesk finish={finish} wireframe={wireframe} />}
           {selectedPreset === 'sculptural' && <SculpturalChair finish={finish} wireframe={wireframe} />}
           {selectedPreset === 'lamp' && <ArcFloorLamp finish={finish} wireframe={wireframe} />}
@@ -306,53 +267,19 @@ function Rotary3DStage({ selectedPreset, customModel, finish, wireframe, lightin
 
 export default function FurnitureStudio() {
   const [selectedPreset, setSelectedPreset] = useState('chair')
-  const [customModel, setCustomModel] = useState(null)
   const [selectedFinish, setSelectedFinish] = useState(MATERIAL_FINISHES[0])
   const [lightingMode, setLightingMode] = useState('studio')
   const [wireframe, setWireframe] = useState(false)
   const [autoRotate, setAutoRotate] = useState(true)
-  const [showSkpHelp, setShowSkpHelp] = useState(false)
 
-  const fileInputRef = useRef(null)
   const controlsRef = useRef(null)
 
   const activeLighting = LIGHTING_MODES.find((l) => l.id === lightingMode) || LIGHTING_MODES[0]
-
-  // Handle Upload
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0]
-    if (!file) return
-
-    const ext = file.name.split('.').pop().toLowerCase()
-    if (ext === 'skp') {
-      setShowSkpHelp(true)
-      return
-    }
-
-    if (!['glb', 'gltf', 'obj'].includes(ext)) {
-      alert('Please upload a .glb, .gltf, or .obj file (or convert your SketchUp .skp file).')
-      return
-    }
-
-    const objectUrl = URL.createObjectURL(file)
-    setCustomModel({
-      url: objectUrl,
-      fileName: file.name,
-      fileType: ext
-    })
-  }
 
   const handleResetCamera = () => {
     if (controlsRef.current) {
       controlsRef.current.reset()
     }
-  }
-
-  const clearCustomModel = () => {
-    if (customModel && customModel.url) {
-      URL.revokeObjectURL(customModel.url)
-    }
-    setCustomModel(null)
   }
 
   return (
@@ -368,7 +295,7 @@ export default function FurnitureStudio() {
             FURNITURE ROTARY STUDIO
           </h2>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-            Inspect architectural furniture pieces in 360° rotation. Choose from custom designer presets or upload your 3D models (exported from SketchUp, Blender, or Rhino).
+            Inspect architectural 3D GLB furniture models in 360° interactive rotation. Explore materials, lighting environments, and structural wireframe details.
           </p>
         </motion.div>
       </div>
@@ -379,7 +306,6 @@ export default function FurnitureStudio() {
         <Canvas camera={{ position: [2.5, 2.0, 3.2], fov: 45 }} shadows>
           <Rotary3DStage
             selectedPreset={selectedPreset}
-            customModel={customModel}
             finish={selectedFinish}
             wireframe={wireframe}
             lightingMode={lightingMode}
@@ -396,14 +322,9 @@ export default function FurnitureStudio() {
           </span>
         </div>
 
-        {/* Presets & Upload Controls (Top Right) */}
+        {/* Presets Selector (Top Right) */}
         <div style={{ position: 'absolute', top: '24px', right: '24px', zIndex: 10, display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-          {!customModel && [
-            { id: 'chair', label: 'Lounge Chair' },
-            { id: 'desk', label: 'Monolith Desk' },
-            { id: 'sculptural', label: 'Dining Chair' },
-            { id: 'lamp', label: 'Arc Floor Lamp' }
-          ].map((preset) => (
+          {PRESET_MODELS.map((preset) => (
             <button
               key={preset.id}
               onClick={() => setSelectedPreset(preset.id)}
@@ -420,76 +341,9 @@ export default function FurnitureStudio() {
                 transition: 'all 0.2s ease'
               }}
             >
-              {preset.label}
+              {preset.name}
             </button>
           ))}
-
-          {/* Upload Button */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              background: customModel ? 'linear-gradient(135deg, #c4a47c 0%, #8c6d46 100%)' : 'rgba(255, 255, 255, 0.12)',
-              color: customModel ? '#000' : '#fff',
-              border: '1px solid rgba(255,255,255,0.3)',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              fontSize: '0.82rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              backdropFilter: 'blur(12px)'
-            }}
-          >
-            <Upload size={14} />
-            {customModel ? `Uploaded: ${customModel.fileName}` : 'Upload 3D / SketchUp Model'}
-          </button>
-
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-            accept=".glb,.gltf,.obj,.skp"
-            style={{ display: 'none' }}
-          />
-
-          {customModel && (
-            <button
-              onClick={clearCustomModel}
-              style={{
-                background: 'rgba(220, 50, 50, 0.3)',
-                color: '#ffaaaa',
-                border: '1px solid rgba(255, 100, 100, 0.3)',
-                padding: '8px 14px',
-                borderRadius: '20px',
-                fontSize: '0.82rem',
-                cursor: 'pointer'
-              }}
-            >
-              Clear Upload
-            </button>
-          )}
-
-          {/* SketchUp (.skp) Export Help Button */}
-          <button
-            onClick={() => setShowSkpHelp(true)}
-            title="SketchUp (.skp) Export Guide"
-            style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              color: '#c4a47c',
-              border: '1px solid rgba(196, 164, 124, 0.4)',
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <Info size={16} />
-          </button>
         </div>
 
         {/* Bottom Controls Toolbar */}
@@ -607,86 +461,6 @@ export default function FurnitureStudio() {
           </div>
         </div>
       </div>
-
-      {/* SketchUp Export Guidance Modal */}
-      <AnimatePresence>
-        {showSkpHelp && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 1000,
-              background: 'rgba(0, 0, 0, 0.85)',
-              backdropFilter: 'blur(10px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px'
-            }}
-            onClick={() => setShowSkpHelp(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                background: '#141419',
-                border: '1px solid rgba(196, 164, 124, 0.4)',
-                borderRadius: '24px',
-                padding: '2.5rem',
-                maxWidth: '560px',
-                width: '100%',
-                boxShadow: '0 25px 50px rgba(0,0,0,0.8)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.2rem' }}>
-                <div style={{ background: 'rgba(196, 164, 124, 0.15)', padding: '10px', borderRadius: '12px', color: '#c4a47c' }}>
-                  <Sparkles size={24} />
-                </div>
-                <h3 style={{ fontSize: '1.4rem', color: '#fff', margin: 0 }}>
-                  How to Use SketchUp (.skp) Models
-                </h3>
-              </div>
-
-              <p style={{ color: '#ccc', lineHeight: '1.6', fontSize: '0.95rem' }}>
-                Native SketchUp <code style={{ color: '#c4a47c', background: 'rgba(255,255,255,0.08)', padding: '2px 6px', borderRadius: '4px' }}>.skp</code> files use a proprietary desktop format. To view your SketchUp furniture models in 360° rotary mode:
-              </p>
-
-              <ol style={{ color: '#ddd', paddingLeft: '1.2rem', lineHeight: '1.8', margin: '1rem 0', fontSize: '0.92rem' }}>
-                <li>Open your model in <strong>Trimble SketchUp</strong>.</li>
-                <li>Go to <strong>File → Export → 3D Model...</strong></li>
-                <li>Choose <strong>GLTF / GLB (.glb)</strong> or <strong>OBJ (.obj)</strong> format.</li>
-                <li>Click <strong>Upload 3D / SketchUp Model</strong> button in our studio to preview it immediately!</li>
-              </ol>
-
-              <div style={{ background: 'rgba(196, 164, 124, 0.08)', borderLeft: '4px solid #c4a47c', padding: '12px 16px', borderRadius: '8px', marginBottom: '1.8rem', fontSize: '0.85rem', color: '#e5e5e5' }}>
-                💡 <em>Tip: GLB / GLTF exports preserve your SketchUp materials, textures, and dimensions for 3D rotary viewing.</em>
-              </div>
-
-              <button
-                onClick={() => setShowSkpHelp(false)}
-                style={{
-                  width: '100%',
-                  background: 'linear-gradient(135deg, #c4a47c 0%, #9e7f57 100%)',
-                  color: '#000',
-                  fontWeight: 700,
-                  padding: '12px',
-                  borderRadius: '12px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.95rem'
-                }}
-              >
-                Got It, Continue
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   )
 }
