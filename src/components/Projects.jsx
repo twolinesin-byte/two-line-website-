@@ -174,6 +174,26 @@ const projects = [
       "/projects/vantrum/12.jpeg",
       "/projects/vantrum/13.jpeg",
     ]
+  },
+  {
+    id: 8,
+    title: "The Coffee Lab",
+    category: "Commercial & Hospitality Interior",
+    location: "London N1C 4AA",
+    year: "2024",
+    status: "Completed",
+    scope: "Interior Architecture & Execution",
+    description: "A specialty coffee destination in London N1C 4AA featuring warm material palettes, bespoke counter details, ambient architectural lighting, and refined spatial flow.",
+    coverImage: "/projects/coffee_lab/00.jpeg",
+    images: [
+      "/projects/coffee_lab/00.jpeg",
+      "/projects/coffee_lab/01.jpeg",
+      "/projects/coffee_lab/02.jpeg",
+      "/projects/coffee_lab/03.jpeg",
+      "/projects/coffee_lab/04.jpeg",
+      "/projects/coffee_lab/05.jpeg",
+      "/projects/coffee_lab/06.jpeg",
+    ]
   }
 ]
 
