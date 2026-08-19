@@ -559,6 +559,8 @@ export default function Projects() {
               <img
                 src={project.coverImage}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 onContextMenu={(e) => e.preventDefault()}
                 onDragStart={(e) => e.preventDefault()}
                 style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'brightness(0.9) contrast(1.05)', borderRadius: '12px', WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none', WebkitUserDrag: 'none' }}
