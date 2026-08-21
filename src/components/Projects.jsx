@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const projects = [
   {
     id: 1,
-    title: "Vikrambhai Farm House",
+    title: "Vijaybhai Farm House",
     category: "Modern Farm House",
     location: "Ahmedabad",
     year: "2023 - 2024",
