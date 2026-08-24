@@ -546,7 +546,16 @@ export default function Projects() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
         {projects.map((project, index) => (
-          <div key={project.id} className={`grid-responsive ${index % 2 !== 0 ? 'project-odd' : 'project-even'}`} style={{ alignItems: 'center' }}>
+          <article 
+            key={project.id} 
+            className={`grid-responsive ${index % 2 !== 0 ? 'project-odd' : 'project-even'}`} 
+            style={{ alignItems: 'center' }}
+            itemScope 
+            itemType="https://schema.org/CreativeWork"
+          >
+            <meta itemprop="name" content={`${project.title} - ${project.category} Surat`} />
+            <meta itemprop="creator" content="Two Lines Studio" />
+            <meta itemprop="locationCreated" content={project.location} />
             <motion.div
               className="project-item-image"
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -558,9 +567,11 @@ export default function Projects() {
             >
               <img
                 src={project.coverImage}
-                alt={project.title}
+                alt={`${project.title} | ${project.category} in ${project.location} by Two Lines Studio Surat Architecture`}
+                title={`${project.title} - Two Lines Studio Architecture & Interior Design`}
                 loading="lazy"
                 decoding="async"
+                itemprop="image"
                 onContextMenu={(e) => e.preventDefault()}
                 onDragStart={(e) => e.preventDefault()}
                 style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'brightness(0.9) contrast(1.05)', borderRadius: '12px', WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none', WebkitUserDrag: 'none' }}
@@ -591,10 +602,10 @@ export default function Projects() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <p className="uppercase" style={{ color: 'var(--color-accent)', letterSpacing: '0.1em', fontSize: '0.75rem', marginBottom: '1rem' }}>
-                {project.category} • {project.location}
+                {project.category} • <span itemprop="contentLocation">{project.location}</span>
               </p>
-              <h3 style={{ fontSize: 'clamp(1.5rem, 6vw, 2rem)', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', wordBreak: 'break-word' }}>{project.title}</h3>
-              <p className="uppercase" style={{ opacity: 0.8, letterSpacing: '0.05em', lineHeight: 1.8, marginBottom: '2rem', fontSize: '0.875rem' }}>
+              <h3 itemprop="headline" style={{ fontSize: 'clamp(1.5rem, 6vw, 2rem)', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', wordBreak: 'break-word' }}>{project.title}</h3>
+              <p itemprop="description" className="uppercase" style={{ opacity: 0.8, letterSpacing: '0.05em', lineHeight: 1.8, marginBottom: '2rem', fontSize: '0.875rem' }}>
                 {project.description}
               </p>
               <motion.button
@@ -602,11 +613,12 @@ export default function Projects() {
                 whileTap={{ scale: 0.95 }}
                 className="btn-outline ios-glass-btn"
                 onClick={() => setLightboxProject(project)}
+                aria-label={`View details of ${project.title} project in ${project.location}`}
               >
                 View Details
               </motion.button>
             </motion.div>
-          </div>
+          </article>
         ))}
       </div>
 

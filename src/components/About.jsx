@@ -183,10 +183,10 @@ export default function About() {
             style={{ fontSize: '0.875rem', letterSpacing: '0.05em', lineHeight: 1.8, opacity: 0.8, textAlign: 'justify' }}
           >
             <p style={{ marginBottom: '1.5rem' }}>
-              Two Lines Studio is a multidisciplinary design consultancy specializing in Architecture, Interior Design, and Landscape.
+              Two Lines Studio is a premier multidisciplinary architecture, interior design, and landscape consultancy based in Surat, Gujarat. Specializing in luxury residential villas, modern farmhouses, and commercial architecture across Surat, our studio blends creative vision with civil engineering precision.
             </p>
-            <p>
-              Driven by functional planning and material intelligence, we deliver end-to-end solutions that are efficient, market-ready, and aesthetically refined.
+            <p style={{ marginBottom: '1.5rem' }}>
+              Driven by functional space distribution, micro-climatic planning, and material intelligence, we deliver end-to-end design-to-execution solutions tailored to Surat's evolving urban & residential landscape.
             </p>
           </motion.div>
           

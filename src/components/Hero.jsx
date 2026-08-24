@@ -14,8 +14,11 @@ export default function Hero() {
         <h1 className="text-huge" style={{ marginBottom: '1rem', overflowWrap: 'break-word' }}>
           PORT<br/>FOLIO
         </h1>
-        <p style={{ letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '4rem', fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', overflowWrap: 'break-word' }}>
+        <h2 style={{ letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem', fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', overflowWrap: 'break-word', fontWeight: 400 }}>
           Architecture | Interior | Landscape
+        </h2>
+        <p style={{ letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '4rem', fontSize: '0.75rem', opacity: 0.6, color: 'var(--color-accent)' }}>
+          Surat Architecture &amp; Interior Design Studio • Gujarat
         </p>
       </motion.div>
       

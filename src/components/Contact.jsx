@@ -49,6 +49,12 @@ export default function Contact() {
             Whether you have a specific project in mind or just want to explore possibilities, we'd love to hear from you.
           </p>
           <div style={{ marginBottom: '2rem' }}>
+            <p style={{ fontWeight: 600, letterSpacing: '0.1em', marginBottom: '0.5rem' }}>LOCATION &amp; STUDIO</p>
+            <p style={{ opacity: 0.85, fontSize: '0.875rem', lineHeight: 1.6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Surat, Gujarat, India
+            </p>
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
             <p style={{ fontWeight: 600, letterSpacing: '0.1em', marginBottom: '0.5rem' }}>EMAIL</p>
             <a href="mailto:twolines.in@gmail.com" style={{ textDecoration: 'none', color: 'inherit', borderBottom: '1px solid var(--color-accent)', paddingBottom: '2px' }}>twolines.in@gmail.com</a>
           </div>
